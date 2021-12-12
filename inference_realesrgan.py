@@ -62,6 +62,9 @@ def main():
     ]:  # x4 VGG-style model (XS size)
         model = SRVGGNetCompact(num_in_ch=3, num_out_ch=3, num_feat=64, num_conv=16, upscale=4, act_type='prelu')
         netscale = 4
+    else:
+        model = RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=6, num_grow_ch=32, scale=4)
+        netscale = 4
 
     # determine model paths
     model_path = os.path.join('experiments/pretrained_models', args.model_name + '.pth')
