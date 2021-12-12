@@ -106,10 +106,10 @@ def main():
         
         if args.ext == 'auto':
                 extension = extension[1:]
-            else:
-                extension = args.ext
-            if img_mode == 'RGBA':  # RGBA images should be saved in png format
-                extension = 'png'
+        else:
+            extension = args.ext
+        if img_mode == 'RGBA':  # RGBA images should be saved in png format
+            extension = 'png'
         save_path = os.path.join(args.output, f'{imgname}-{args.suffix}.{extension}')
         
         if os.path.exists(save_path):
