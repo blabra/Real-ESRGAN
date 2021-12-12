@@ -104,6 +104,10 @@ def main():
 
         img = cv2.imread(path, cv2.IMREAD_UNCHANGED)
         
+        if len(img.shape) == 3 and img.shape[2] == 4:
+            img_mode = 'RGBA'
+        else:
+            img_mode = None
         if args.ext == 'auto':
                 extension = extension[1:]
         else:
@@ -111,13 +115,8 @@ def main():
         if img_mode == 'RGBA':  # RGBA images should be saved in png format
             extension = 'png'
         save_path = os.path.join(args.output, f'{imgname}-{args.suffix}.{extension}')
-        
         if os.path.exists(save_path):
             continue
-        if len(img.shape) == 3 and img.shape[2] == 4:
-            img_mode = 'RGBA'
-        else:
-            img_mode = None
 
         try:
             if args.face_enhance:
