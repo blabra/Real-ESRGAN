@@ -109,7 +109,7 @@ def main():
         else:
             img_mode = None
         if args.ext == 'auto':
-                extension = extension[1:]
+            extension = "png"
         else:
             extension = args.ext
         if img_mode == 'RGBA':  # RGBA images should be saved in png format
