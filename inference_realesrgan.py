@@ -3,6 +3,7 @@ import cv2
 import glob
 import os
 from basicsr.archs.rrdbnet_arch import RRDBNet
+import time
 
 from realesrgan import RealESRGANer
 from realesrgan.archs.srvgg_arch import SRVGGNetCompact
@@ -99,6 +100,7 @@ def main():
         paths = sorted(glob.glob(os.path.join(args.input, '*')))
 
     for idx, path in enumerate(paths):
+        startTime = time.perf_counter()
         imgname, extension = os.path.splitext(os.path.basename(path))
         
 
@@ -117,7 +119,7 @@ def main():
         save_path = os.path.join(args.output, f'{imgname}-{args.suffix}.{extension}')
         if os.path.exists(save_path):
             continue
-        print('Testing', idx, imgname)
+        
         try:
             if args.face_enhance:
                 _, _, output = face_enhancer.enhance(img, has_aligned=False, only_center_face=False, paste_back=True)
@@ -128,6 +130,7 @@ def main():
             print('If you encounter CUDA out of memory, try to set --tile with a smaller number.')
         else:
             cv2.imwrite(save_path, output)
+            print(f'NO.{idx}, {imgname} is done, used {round((time.perf_counter() - startTime), 4)} seconds')
 
 
 if __name__ == '__main__':
