@@ -100,7 +100,7 @@ def main():
 
     for idx, path in enumerate(paths):
         imgname, extension = os.path.splitext(os.path.basename(path))
-        print('Testing', idx, imgname)
+        
 
         img = cv2.imread(path, cv2.IMREAD_UNCHANGED)
         
@@ -117,7 +117,7 @@ def main():
         save_path = os.path.join(args.output, f'{imgname}-{args.suffix}.{extension}')
         if os.path.exists(save_path):
             continue
-
+        print('Testing', idx, imgname)
         try:
             if args.face_enhance:
                 _, _, output = face_enhancer.enhance(img, has_aligned=False, only_center_face=False, paste_back=True)
